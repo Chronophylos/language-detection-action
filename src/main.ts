@@ -8,7 +8,7 @@ async function run(): Promise<void> {
   try {
     core.debug('Detecting language')
     language = await detectLanguage(input)
-    core.debug(`Detected language as ${language}`)
+    core.debug(`Detected language as '${language}'`)
   } catch (error) {
     core.setFailed(error.message)
   }

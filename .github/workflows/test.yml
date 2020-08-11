@@ -24,4 +24,4 @@ jobs:
         with:
           input: 'Hello World. This is a test from a workflow.'
       - name: 'Dump result'
-        run: echo "Found language ${{steps.detect.outputs.language}}"
+        run: echo "Found language `${{steps.detect.outputs.language}}`"
