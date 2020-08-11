@@ -20,7 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        id: 'detect'
         with:
           input: 'Hello World. This is a test from a workflow.'
       - name: 'Dump result'
-        run: echo "Found language ${{language}}"
+        run: echo "Found language ${{steps.detect.output.language}}"
