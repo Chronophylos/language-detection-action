@@ -12,8 +12,7 @@ async function run(): Promise<void> {
     core.setFailed(error.message)
   }
 
-  const output = core.getInput('output')
-  core.setOutput(output, language)
+  core.setOutput('language', language)
 }
 
 run()
