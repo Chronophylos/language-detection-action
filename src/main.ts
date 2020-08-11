@@ -3,7 +3,7 @@ import {detectLanguage} from './detection'
 
 async function run(): Promise<void> {
   let language: String = 'unknown'
-  const input = core.getInput('input')
+  const input = core.getInput('input', {required: true})
 
   try {
     core.debug('Detecting language')
