@@ -23,6 +23,4 @@ jobs:
         with:
           input: 'Hello World. This is a test from a workflow.'
       - name: 'Dump result'
-        env:
-          LANGUAGE: ${{language}}
-        run: echo "$LANGUAGE"
+        run: echo "Found language ${{language}}"

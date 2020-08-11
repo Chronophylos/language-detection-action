@@ -3,11 +3,11 @@ description: 'Detect the primary language used in a issue, comment or pull reque
 author: 'Chronophylos'
 inputs:
   input:
-    description: 'input text'
+    description: 'The text to check'
     required: true
-  output:
-    description: 'Name of the environment variable to set to the detected language code'
-    default: 'language'
+outputs:
+  language:
+    description: 'The detected language'
 runs:
   using: 'node12'
   main: 'dist/index.js'
