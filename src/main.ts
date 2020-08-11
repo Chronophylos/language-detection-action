@@ -1,19 +1,19 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {detectLanguage} from './detection'
 
 async function run(): Promise<void> {
+  let language: String = 'unknown'
+  const input = core.getInput('input')
+
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    core.debug('Detecting language')
+    language = await detectLanguage(input)
   } catch (error) {
     core.setFailed(error.message)
   }
+
+  const output = core.getInput('output')
+  core.setOutput(output, language)
 }
 
 run()

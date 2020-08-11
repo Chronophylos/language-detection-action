@@ -1,11 +1,13 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Language Detection'
+description: 'Detect the primary language used in a issue, comment or pull request.'
+author: 'Chronophylos'
 inputs:
-  milliseconds: # change this
+  input:
+    description: 'input text'
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  output:
+    description: 'Name of the environment variable to set to the detected language code'
+    default: 'language'
 runs:
   using: 'node12'
   main: 'dist/index.js'
