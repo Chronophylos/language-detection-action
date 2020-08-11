@@ -2043,6 +2043,7 @@ function run() {
         try {
             core.debug('Detecting language');
             language = yield detection_1.detectLanguage(input);
+            core.debug(`Detected language as {language}`);
         }
         catch (error) {
             core.setFailed(error.message);
