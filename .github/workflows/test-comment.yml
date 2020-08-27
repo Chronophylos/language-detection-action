@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: 'Dump comment event'
-        run: echo ${{toJson(github.event.comment)}}
+        run: echo "${{toJson(github.event.comment)}}"
       - uses: ./
         id: 'detect'
         with:
