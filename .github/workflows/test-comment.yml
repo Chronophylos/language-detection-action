@@ -1,0 +1,20 @@
+name: 'comment-test'
+on:
+  issue_comment: [created]
+  #issues: [opened]
+
+jobs:
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: dump
+        env:
+          DUMP: '${{github.event}}'
+        run: echo $DUMP
+      - uses: ./
+        id: 'detect'
+        with:
+          input: '${{github.event.issue_comment}}'
+      - name: 'Dump result'
+        run: echo "Found language `${{steps.detect.outputs.language}}`"
