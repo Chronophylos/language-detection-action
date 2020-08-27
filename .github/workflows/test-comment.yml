@@ -10,13 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: dump
-        env:
-          DUMP: '${{toJson(github.event)}}'
-        run: echo $DUMP
+      - name: 'Dump comment event'
+        run: echo ${{toJson(github.event.comment)}}
       - uses: ./
         id: 'detect'
         with:
-          input: '${{github.event.issue_comment}}'
+          input: '${{github.event.comment.body}}'
       - name: 'Dump result'
         run: echo "Found language `${{steps.detect.outputs.language}}`"
