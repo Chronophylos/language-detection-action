@@ -16,4 +16,8 @@ async function run(): Promise<void> {
   core.setOutput('language', language)
 }
 
-run().catch(core.error)
+try {
+  run()
+} catch (err) {
+  core.error(err)
+}

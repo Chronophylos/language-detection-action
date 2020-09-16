@@ -2024,34 +2024,28 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const detection_1 = __webpack_require__(670);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        let language = 'unknown';
-        const input = core.getInput('input', { required: true });
-        try {
-            core.debug('Detecting language');
-            language = yield detection_1.detectLanguage(input);
-            core.debug(`Detected language as '${language}'`);
-        }
-        catch (error) {
-            core.setFailed(error.message);
-        }
-        core.setOutput('language', language);
-    });
+async function run() {
+    let language = 'unknown';
+    const input = core.getInput('input', { required: true });
+    try {
+        core.debug('Detecting language');
+        language = await detection_1.detectLanguage(input);
+        core.debug(`Detected language as '${language}'`);
+    }
+    catch (error) {
+        core.setFailed(error.message);
+    }
+    core.setOutput('language', language);
 }
-run();
+try {
+    run();
+}
+catch (err) {
+    core.error(err);
+}
 
 
 /***/ }),
@@ -5199,31 +5193,20 @@ module.exports = require("util");
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.detectLanguage = void 0;
 const got_1 = __importDefault(__webpack_require__(77));
-function detectLanguage(text) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-            const body = yield got_1.default
-                .post('https://languages.cortical.io/rest/text/detect_language', {
-                body: text
-            })
-                .json();
-            resolve(body.iso_tag);
-        }));
+async function detectLanguage(text) {
+    return new Promise(async (resolve) => {
+        const body = await got_1.default
+            .post('https://languages.cortical.io/rest/text/detect_language', {
+            body: text
+        })
+            .json();
+        resolve(body.iso_tag);
     });
 }
 exports.detectLanguage = detectLanguage;
